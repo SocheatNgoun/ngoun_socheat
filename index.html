@@ -1,126 +1,590 @@
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    //title on bar
-    <title>My olo</title>
-    <meta name="description" content="Starter template for a simple website." />
+    <title>Cafe — Coffee, Bakery & Matcha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <style>
         :root{
-            --bg:#f7fafc; --card:#ffffff; --accent:#2563eb; --muted:#6b7280;
-            --radius:10px; --maxw:1100px;
+            --bg:#fff8f2;
+            --card:#ffffff;
+            --accent:#6b3f1b;
+            --muted:#7a6b63;
+            --green:#2f8f59;
+            --shadow: 0 6px 18px rgba(50,30,20,0.08);
         }
         *{box-sizing:border-box}
         body{
-            margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-            background:var(--bg); color:#0f172a; line-height:1.4;
+            margin:0;
+            font-family:Nunito,system-ui,Segoe UI,Roboto,Arial;
+            background:linear-gradient(180deg,var(--bg),#fff);
+            color:#2b2b2b;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
         }
-        header{background:linear-gradient(90deg,#ffffffaa,#f1f5f9aa);backdrop-filter:blur(6px); position:sticky; top:0; z-index:10; border-bottom:1px solid #e6edf3;}
-        .container{max-width:var(--maxw); margin:0 auto; padding:16px;}
-        nav{display:flex; align-items:center; gap:16px; justify-content:space-between;}
-        .brand{font-weight:700; color:var(--accent); font-size:1.1rem;}
-        .nav-links{display:flex; gap:12px; align-items:center;}
-        .nav-links a{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px;}
-        .nav-links a:hover{background:#eef2ff; color:var(--accent)}
-        .hero{display:grid; grid-template-columns:1fr; gap:18px; align-items:center; padding:40px 16px;}
-        .hero h1{margin:0; font-size:clamp(1.6rem,3.5vw,2.2rem)}
-        .hero p{margin:0; color:var(--muted)}
-        .btn{display:inline-block; background:var(--accent); color:#fff; padding:10px 14px; border-radius:8px; text-decoration:none;}
-        .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); margin:24px 0;}
-        .card{background:var(--card); padding:16px; border-radius:var(--radius); box-shadow:0 6px 18px rgba(12,17,31,0.06);}
-        footer{padding:20px 0; color:var(--muted); text-align:center; font-size:0.9rem;}
-        /* small-screen nav toggle */
-        .menu-toggle{display:none; background:transparent; border:0; font-size:18px;}
-        @media (max-width:720px){
-            .nav-links{position:absolute; left:0; right:0; top:60px; background:var(--card); flex-direction:column; padding:12px; display:none;}
-            .nav-links.show{display:flex}
-            .menu-toggle{display:inline-block}
+        header{
+            padding:32px 20px;
+            display:flex;
+            align-items:center;
+            gap:18px;
+            border-bottom:1px solid rgba(0,0,0,0.04);
+            background:linear-gradient(90deg,rgba(255,255,255,0.8),transparent);
+            position:sticky;
+            top:0;
+            z-index:10;
         }
+        .logo{
+            width:64px;
+            height:64px;
+            border-radius:12px;
+            background:linear-gradient(135deg,#f6e5d6,#f1d1b3);
+            box-shadow:var(--shadow);
+            display:grid;
+            place-items:center;
+            font-family:Playfair Display,serif;
+            color:var(--accent);
+            font-size:22px;
+            font-weight:700;
+        }
+        header h1{
+            margin:0;
+            font-family:Playfair Display,serif;
+            font-size:20px;
+            color:var(--accent);
+        }
+        header p{margin:0;color:var(--muted);font-size:13px}
+        .container{
+            max-width:1100px;
+            margin:28px auto;
+            padding:0 20px 60px;
+        }
+        .hero{
+            display:flex;
+            gap:20px;
+            align-items:center;
+            margin-bottom:20px;
+            flex-wrap:wrap;
+        }
+        .hero .intro{
+            flex:1 1 320px;
+            background:var(--card);
+            padding:22px;
+            border-radius:14px;
+            box-shadow:var(--shadow);
+        }
+        .hero h2{margin:0 0 6px;font-family:Playfair Display,serif;color:var(--accent)}
+        .hero p{margin:0;color:var(--muted)}
+        .controls{
+            display:flex;
+            gap:8px;
+            margin-top:12px;
+            flex-wrap:wrap;
+        }
+        .btn{
+            border:0;
+            padding:8px 12px;
+            border-radius:10px;
+            cursor:pointer;
+            background:transparent;
+            color:var(--muted);
+            font-weight:600;
+            box-shadow:none;
+            transition:all .18s ease;
+        }
+        .btn.primary{
+            background:var(--accent);
+            color:#fff;
+            box-shadow:0 8px 24px rgba(107,63,27,0.14);
+        }
+        .btn.ghost{background:rgba(0,0,0,0.03)}
+        .menu-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
+            margin-top:22px;
+        }
+        @media (max-width:900px){ .menu-grid{grid-template-columns:repeat(2,1fr)} }
+        @media (max-width:600px){ .menu-grid{grid-template-columns:1fr} .hero{flex-direction:column} }
+        .card{
+            background:var(--card);
+            border-radius:12px;
+            padding:12px;
+            box-shadow:var(--shadow);
+            display:flex;
+            gap:12px;
+            align-items:flex-start;
+        }
+        .thumb{
+            width:92px;
+            height:92px;
+            border-radius:10px;
+            flex:0 0 92px;
+            overflow:hidden;
+            background:#f3f0ee;
+            display:grid;
+            place-items:center;
+            color:#fff;
+        }
+        .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+        .meta{flex:1}
+        .meta h3{margin:0;font-size:15px;color:var(--accent)}
+        .meta p{margin:6px 0 0;color:var(--muted);font-size:13px}
+        .meta .price{margin-top:8px;font-weight:700;color:#2d2d2d}
+        .tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+        .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(47,143,89,0.08);color:var(--green)}
+        footer{
+            margin-top:28px;
+            text-align:center;
+            color:var(--muted);
+            font-size:13px;
+        }
+        /* category pills */
+        .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+        .pill{
+            padding:8px 12px;border-radius:999px;background:rgba(0,0,0,0.04);cursor:pointer;font-weight:700;color:var(--muted)
+        }
+        .pill.active{background:var(--accent);color:#fff;box-shadow:0 8px 18px rgba(107,63,27,0.12)}
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <nav>
-
-                //noted
-                <div class="brand">MySite</div>
-                <button class="menu-toggle" aria-expanded="false" aria-controls="nav">☰</button>
-                <div class="nav-links" id="nav" role="navigation">
-                    <a href="#home">Home</a>
-                    <a href="#features">Features</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                </div>
-            </nav>
+        <div class="logo">Café</div>
+        <div>
+            <h1>Hearth & Matcha — Cafe Menu</h1>
+            <p>Coffee, bakery, matcha & creamy delights — handcrafted daily</p>
         </div>
     </header>
 
-    <main>
-        <section class="container hero" id="home">
-            <div>
+    <main class="container">
+        <section class="hero">
+            <div class="intro">
+                <h2>Welcome — Sip. Savor. Smile.</h2>
+                <p>Explore crafted coffees, flaky bakery treats, every matcha variation and ultra-creamy signature drinks. Filter by category to find your next craving.</p>
 
-                //noted 2
-                <h1>Simple starter website</h1>
-                <p>Use this file as a starting point. Edit content, styles and scripts to build your site.</p>
-                <p><a class="btn" href="#features">Get started</a></p>
+                <div class="controls">
+                    <button class="btn primary" onclick="showCategory('all')">All</button>
+                    <button class="btn ghost" onclick="showCategory('coffee')">Coffee</button>
+                    <button class="btn ghost" onclick="showCategory('bakery')">Bakery</button>
+                    <button class="btn ghost" onclick="showCategory('matcha')">Matcha</button>
+                    <button class="btn ghost" onclick="showCategory('creamy')">Creamy</button>
+                </div>
             </div>
-            <div>
-                <img src="https://via.placeholder.com/560x320?text=Hero+Image" alt="" style="width:100%; border-radius:10px; box-shadow:0 6px 18px rgba(12,17,31,0.06);">
-            </div>
-        </section>
 
-        <section class="container" id="features">
-
-            //noted 3
-            <h2 style="margin-top:0">Features</h2>
-            <div class="grid">
-                <article class="card">
-                    <h3 style="margin:0 0 8px 0">Responsive</h3>
-                    <p style="margin:0;color:var(--muted)">Layout adapts to different screens with no extra setup.</p>
-                </article>
-                <article class="card">
-                    <h3 style="margin:0 0 8px 0">Accessible</h3>
-                    <p style="margin:0;color:var(--muted)">Semantic markup and clear focus states help accessibility.</p>
-                </article>
-                <article class="card">
-                    <h3 style="margin:0 0 8px 0">Easy to extend</h3>
-                    <p style="margin:0;color:var(--muted)">Drop in your own components, styles, or frameworks.</p>
-                </article>
+            <div style="flex:0 0 320px">
+                <div style="background:linear-gradient(180deg,#fff,#fff9f4);padding:18px;border-radius:12px;box-shadow:var(--shadow)">
+                    <h3 style="margin:0 0 6px;font-family:Playfair Display,serif;color:var(--accent)">Today's Picks</h3>
+                    <p style="margin:0;color:var(--muted);font-size:14px">Matcha Frappe, Almond Croissant, Salted Caramel Cream Latte, Nitro Cold Brew, Blueberry Muffin</p>
+                    <div style="display:flex;gap:8px;margin-top:12px">
+                        <span style="font-size:12px;background:rgba(47,143,89,0.08);padding:6px 10px;border-radius:999px;color:var(--green);font-weight:700">Seasonal</span>
+                        <span style="font-size:12px;background:rgba(255,160,90,0.12);padding:6px 10px;border-radius:999px;color:#b55b1b;font-weight:700">Limited</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="container" id="about">
-
-            //noted 4
-            <h2>About</h2>
-            <div class="card">
-                <p style="margin:0;color:var(--muted)">This is a minimal static HTML starter. Save as an .html file and open in a browser to preview.</p>
+        <section class="menu-grid">
+            <!-- Coffee -->
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Espresso" alt="Espresso"></div>
+                <div class="meta">
+                    <h3>Espresso</h3>
+                    <p>Rich and bold espresso shot, perfect for a quick pick-me-up.</p>
+                    <div class="price">$3.00</div>
+                    <div class="tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Classic</span>
+                    </div>
+                </div>
             </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Americano" alt="Americano"></div>
+                <div class="meta">
+                    <h3>Americano</h3>
+                    <p>Espresso diluted with hot water for a smooth, bold cup.</p>
+                    <div class="price">$3.25</div>
+                    <div class="tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Bold</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Cappuccino" alt="Cappuccino"></div>
+                <div class="meta">
+                    <h3>Cappuccino</h3>
+                    <p>Equal parts espresso, steamed milk, and airy foam.</p>
+                    <div class="price">$4.00</div>
+                    <div class="tags">
+                        <span class="tag">Foamy</span>
+                        <span class="tag">Classic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Latte" alt="Latte"></div>
+                <div class="meta">
+                    <h3>Latte</h3>
+                    <p>Smooth steamed milk over a double shot of espresso.</p>
+                    <div class="price">$4.50</div>
+                    <div class="tags">
+                        <span class="tag">Milky</span>
+                        <span class="tag">Comfort</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Flat+White" alt="Flat White"></div>
+                <div class="meta">
+                    <h3>Flat White</h3>
+                    <p>Velvety microfoam over strong espresso—delicate and balanced.</p>
+                    <div class="price">$4.25</div>
+                    <div class="tags">
+                        <span class="tag">Smooth</span>
+                        <span class="tag">Velvet</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Mocha" alt="Mocha"></div>
+                <div class="meta">
+                    <h3>Mocha</h3>
+                    <p>Chocolate and espresso married with steamed milk and cream.</p>
+                    <div class="price">$4.95</div>
+                    <div class="tags">
+                        <span class="tag">Chocolatey</span>
+                        <span class="tag">Sweet</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Cold+Brew" alt="Cold Brew"></div>
+                <div class="meta">
+                    <h3>Cold Brew</h3>
+                    <p>Slow-steeped coffee for a smooth, low-acidity iced cup.</p>
+                    <div class="price">$4.25</div>
+                    <div class="tags">
+                        <span class="tag">Iced</span>
+                        <span class="tag">Smooth</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Nitro" alt="Nitro Cold Brew"></div>
+                <div class="meta">
+                    <h3>Nitro Cold Brew</h3>
+                    <p>Infused with nitrogen for a creamy, stout-like finish.</p>
+                    <div class="price">$5.25</div>
+                    <div class="tags">
+                        <span class="tag">Iced</span>
+                        <span class="tag">Nitro</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="coffee">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Macchiato" alt="Macchiato"></div>
+                <div class="meta">
+                    <h3>Macchiato</h3>
+                    <p>Bold espresso "stained" with a touch of steamed milk.</p>
+                    <div class="price">$3.50</div>
+                    <div class="tags">
+                        <span class="tag">Strong</span>
+                        <span class="tag">Classic</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bakery -->
+            <div class="card" data-category="bakery">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Almond+Croissant" alt="Almond Croissant"></div>
+                <div class="meta">
+                    <h3>Almond Croissant</h3>
+                    <p>Flaky croissant filled with almond cream and topped with sliced almonds.</p>
+                    <div class="price">$4.50</div>
+                    <div class="tags">
+                        <span class="tag">Bakery</span>
+                        <span class="tag">Vegan</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="bakery">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Blueberry+Muffin" alt="Blueberry Muffin"></div>
+                <div class="meta">
+                    <h3>Blueberry Muffin</h3>
+                    <p>Soft, buttery muffin studded with juicy blueberries.</p>
+                    <div class="price">$3.75</div>
+                    <div class="tags">
+                        <span class="tag">Sweet</span>
+                        <span class="tag">Breakfast</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="bakery">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Cinnamon+Roll" alt="Cinnamon Roll"></div>
+                <div class="meta">
+                    <h3>Cinnamon Roll</h3>
+                    <p>Warm, gooey spiral topped with vanilla glaze.</p>
+                    <div class="price">$4.25</div>
+                    <div class="tags">
+                        <span class="tag">Warm</span>
+                        <span class="tag">Sticky</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="bakery">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Chocolate+Chip+Cookie" alt="Cookie"></div>
+                <div class="meta">
+                    <h3>Chocolate Chip Cookie</h3>
+                    <p>Crispy edges, chewy center, loaded with chocolate chips.</p>
+                    <div class="price">$2.25</div>
+                    <div class="tags">
+                        <span class="tag">Snack</span>
+                        <span class="tag">Classic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="bakery">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Banana+Bread" alt="Banana Bread"></div>
+                <div class="meta">
+                    <h3>Banana Bread</h3>
+                    <p>Moist loaf with ripe bananas and a hint of cinnamon.</p>
+                    <div class="price">$3.95</div>
+                    <div class="tags">
+                        <span class="tag">Comfort</span>
+                        <span class="tag">Homemade</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="bakery">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Lemon+Tart" alt="Lemon Tart"></div>
+                <div class="meta">
+                    <h3>Lemon Tart</h3>
+                    <p>Bright, tangy lemon curd in a crisp pastry shell.</p>
+                    <div class="price">$4.75</div>
+                    <div class="tags">
+                        <span class="tag">Tart</span>
+                        <span class="tag">Zesty</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="bakery">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Vegan+Brownie" alt="Vegan Brownie"></div>
+                <div class="meta">
+                    <h3>Vegan Brownie</h3>
+                    <p>Fudgy cocoa brownie made without dairy—intensely chocolatey.</p>
+                    <div class="price">$3.50</div>
+                    <div class="tags">
+                        <span class="tag">Vegan</span>
+                        <span class="tag">Chocolate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matcha (everyday & specialty) -->
+            <div class="card" data-category="matcha">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Matcha+Latte" alt="Matcha Latte"></div>
+                <div class="meta">
+                    <h3>Matcha Latte (Hot)</h3>
+                    <p>Premium ceremonial matcha whisked with steamed milk.</p>
+                    <div class="price">$4.50</div>
+                    <div class="tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Ceremonial</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="matcha">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Iced+Matcha" alt="Iced Matcha"></div>
+                <div class="meta">
+                    <h3>Iced Matcha</h3>
+                    <p>Chilled matcha shaken with ice and a splash of milk.</p>
+                    <div class="price">$4.75</div>
+                    <div class="tags">
+                        <span class="tag">Iced</span>
+                        <span class="tag">Refreshing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="matcha">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Matcha+Frappe" alt="Matcha Frappe"></div>
+                <div class="meta">
+                    <h3>Matcha Frappe</h3>
+                    <p>Blended matcha with milk and ice for a creamy, icy treat.</p>
+                    <div class="price">$5.50</div>
+                    <div class="tags">
+                        <span class="tag">Blended</span>
+                        <span class="tag">Creamy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="matcha">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Ceremonial+Matcha" alt="Ceremonial Matcha"></div>
+                <div class="meta">
+                    <h3>Ceremonial Matcha</h3>
+                    <p>Pure whisked matcha served traditionally—no milk.</p>
+                    <div class="price">$5.00</div>
+                    <div class="tags">
+                        <span class="tag">Pure</span>
+                        <span class="tag">Ceremonial</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="matcha">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Matcha+Affogato" alt="Matcha Affogato"></div>
+                <div class="meta">
+                    <h3>Matcha Affogato</h3>
+                    <p>Shot of matcha poured over a scoop of vanilla ice cream.</p>
+                    <div class="price">$6.50</div>
+                    <div class="tags">
+                        <span class="tag">Dessert</span>
+                        <span class="tag">Creamy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="matcha">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Matcha+Chai" alt="Matcha Chai"></div>
+                <div class="meta">
+                    <h3>Matcha Chai</h3>
+                    <p>A spice-forward blend of chai and matcha with steamed milk.</p>
+                    <div class="price">$5.25</div>
+                    <div class="tags">
+                        <span class="tag">Spiced</span>
+                        <span class="tag">Fusion</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="matcha">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Matcha+Smoothie" alt="Matcha Smoothie"></div>
+                <div class="meta">
+                    <h3>Matcha Smoothie</h3>
+                    <p>Matcha blended with banana, spinach, and oat milk for energy.</p>
+                    <div class="price">$6.00</div>
+                    <div class="tags">
+                        <span class="tag">Healthy</span>
+                        <span class="tag">Smoothie</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creamy & Signature Drinks -->
+            <div class="card" data-category="creamy">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Salted+Caramel" alt="Salted Caramel Cream Latte"></div>
+                <div class="meta">
+                    <h3>Salted Caramel Cream Latte</h3>
+                    <p>Caramel syrup, espresso, steamed milk, and a cloud of salted cream.</p>
+                    <div class="price">$5.75</div>
+                    <div class="tags">
+                        <span class="tag">Creamy</span>
+                        <span class="tag">Sweet</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="creamy">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Vanilla+Cream" alt="Vanilla Bean Cream Cold Brew"></div>
+                <div class="meta">
+                    <h3>Vanilla Bean Cream Cold Brew</h3>
+                    <p>Smooth cold brew topped with housemade vanilla cream.</p>
+                    <div class="price">$5.50</div>
+                    <div class="tags">
+                        <span class="tag">Iced</span>
+                        <span class="tag">Creamy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="creamy">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Brown+Sugar+Boba" alt="Brown Sugar Boba Milk"></div>
+                <div class="meta">
+                    <h3>Brown Sugar Boba Milk</h3>
+                    <p>Chewy boba, brown sugar syrup and ultra-creamy milk.</p>
+                    <div class="price">$5.95</div>
+                    <div class="tags">
+                        <span class="tag">Boba</span>
+                        <span class="tag">Sweet</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="creamy">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Honey+Lavender" alt="Honey Lavender Latte"></div>
+                <div class="meta">
+                    <h3>Honey Lavender Latte</h3>
+                    <p>Floral lavender and honey folded into steamed milk and espresso.</p>
+                    <div class="price">$5.25</div>
+                    <div class="tags">
+                        <span class="tag">Floral</span>
+                        <span class="tag">Aromatic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="creamy">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=White+Chocolate" alt="White Chocolate Mocha"></div>
+                <div class="meta">
+                    <h3>White Chocolate Mocha</h3>
+                    <p>Luxurious white chocolate and espresso with steamed milk.</p>
+                    <div class="price">$5.50</div>
+                    <div class="tags">
+                        <span class="tag">Sweet</span>
+                        <span class="tag">Decadent</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="creamy">
+                <div class="thumb"><img src="https://via.placeholder.com/92x92?text=Rose+Cream" alt="Rose Cream"></div>
+                <div class="meta">
+                    <h3>Rose Cream</h3>
+                    <p>Delicate rose syrup, espresso or tea base, topped with rose cream.</p>
+                    <div class="price">$5.75</div>
+                    <div class="tags">
+                        <span class="tag">Floral</span>
+                        <span class="tag">Creamy</span>
+                    </div>
+                </div>
+            </div>
+
         </section>
+
     </main>
 
     <footer>
-        <div class="container">
-
-            //leg
-            © <span id="year"></span> MySite — Built with a simple HTML starter
-        </div>
+        &copy; 2025 Hearth & Matcha Cafe. All rights reserved.
     </footer>
 
     <script>
-        // small JS for menu toggle and dynamic year
-        document.getElementById('year').textContent = new Date().getFullYear();
-        (function(){
-            const btn = document.querySelector('.menu-toggle');
-            const nav = document.getElementById('nav');
-            btn.addEventListener('click', () => {
-                const show = nav.classList.toggle('show');
-                btn.setAttribute('aria-expanded', show);
+        function showCategory(category) {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
-        })();
+        }
     </script>
 </body>
 </html>
